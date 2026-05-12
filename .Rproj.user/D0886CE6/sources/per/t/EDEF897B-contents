@@ -34,7 +34,7 @@ This project examines the determinants of income among small-scale beekeepers in
 ```{r include=FALSE}
 library(readxl)
 
-apiculture_data <- read_excel("data/apiculturemay2026.xlsx")
+apiculture_data <- read_excel("data/public_apiculture_data.xlsx")
 ```
 
 # Income Distribution
