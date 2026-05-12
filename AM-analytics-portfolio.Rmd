@@ -1,0 +1,109 @@
+---
+title: "Data Analytics Portfolio"
+author: "Anthony M. Mugambi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Profile
+
+Data analyst with expertise in statistical analysis, econometrics, and data-driven research using R programming. Experienced in regression modeling, data visualization, and applied analytics using real-world datasets.
+
+# Technical Skills
+
+- R Programming
+- Data Cleaning and Transformation
+- Data Visualization
+- Regression Modeling
+- Statistical Testing
+- Research and Academic Writing
+
+# Project: Apiculture Income Analysis
+
+This project examines the determinants of income among small-scale beekeepers in Meru County, Kenya using survey data and econometric analysis.
+
+## Tools Used
+
+- ggplot2
+- readxl
+- MASS
+- dplyr
+
+# Data Loading
+
+```{r include=FALSE}
+library(readxl)
+
+apiculture_data <- read_excel("data/apiculturemay2026.xlsx")
+```
+
+# Income Distribution
+
+```{r}
+table(apiculture_data$ANNUALINCOME)
+```
+
+# Data Visualization
+
+```{r}
+library(ggplot2)
+
+ggplot(apiculture_data, aes(x = ANNUALINCOME)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(
+    title = "Income Distribution of Beekeepers",
+    x = "Income Category",
+    y = "Frequency"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+# Ordered Logistic Regression
+
+```{r include=FALSE}
+library(MASS)
+
+# Fix income category
+apiculture_data$ANNUALINCOME[
+  apiculture_data$ANNUALINCOME == "100001-"
+] <- "100001+"
+
+# Convert to ordered factor
+apiculture_data$ANNUALINCOME <- factor(
+  apiculture_data$ANNUALINCOME,
+  levels = c("<5000", "5000-10000", "11000-20000", "21000-100000", "100001+"),
+  ordered = TRUE
+)
+
+# Convert predictors
+apiculture_data$TYPEOFHIVES <- factor(apiculture_data$TYPEOFHIVES)
+apiculture_data$FORMALBEEKEEPINGTRAINING <- factor(apiculture_data$FORMALBEEKEEPINGTRAINING)
+
+# Run model
+model <- polr(
+  ANNUALINCOME ~ TYPEOFHIVES + FORMALBEEKEEPINGTRAINING,
+  data = apiculture_data
+)
+```
+
+# Key Findings
+
+- Majority of beekeepers fall within low-income categories.
+- Formal beekeeping training improves income outcomes.
+- Traditional hives are associated with lower productivity and earnings.
+- Modern beekeeping practices improve commercialization potential.
+
+# Research Interests
+
+- Agricultural Entrepreneurship
+- Applied Econometrics
+- Machine Learning
+- Environmental Economics
+- Data Analytics
+
+# Contact
+
+**Anthony M. Mugambi**  
+Meru University of Science and Technology  
+Email: antoinemuriungi@gmail.com

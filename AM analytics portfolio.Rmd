@@ -1,0 +1,116 @@
+---
+title: "Data Analytics Portfolio"
+author: "Anthony M. Mugambi"
+date: "2026-05-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##  Profile
+
+Data analyst with strong expertise in statistical analysis, econometrics, and data-driven research. Proficient in R programming, data visualization, and regression modeling, with hands-on experience analyzing real-world datasets. Demonstrated ability to transform data into actionable insights for research and policy applications.
+
+## ️ Technical Skills
+
+- R Programming (ggplot2, dplyr, readxl, MASS)
+- Data Cleaning and Transformation
+- Statistical Analysis (Chi-square, Fisher’s Exact Test)
+- Regression Modeling (Logistic & Ordered Logistic)
+- Data Visualization
+- Research & Academic Writing 
+
+##  Data Loading
+
+```{r}
+
+library(readxl)
+
+```{r echo=FALSE, results='hide'}
+apiculture_data <- read_excel("C:/Users/pc/Documents/2025/data apiculture/apiculturemay2026.xlsx")
+
+# confirm it loaded
+head(apiculture_data)
+```
+
+```{r}
+
+table(apiculture_data$ANNUALINCOME)
+```
+```
+
+##  Project: Apiculture Income Analysis (Meru County)
+
+This project analyzes the determinants of income among small-scale beekeepers using survey data. The analysis focuses on the role of training, technology adoption, and education in influencing income outcomes.
+
+### Methods Used:
+- Descriptive statistics
+- Chi-square and Fisher’s Exact Test
+- Ordered logistic regression
+
+
+
+##  Sample Analysis
+
+
+## Including Plots
+##  Data Visualization
+
+```{r}
+library(ggplot2)
+
+ggplot(apiculture_data, aes(x = ANNUALINCOME)) +
+  geom_bar() +
+  theme_minimal() +
+  labs(
+    title = "Income Distribution of Beekeepers",
+    x = "Income Category",
+    y = "Frequency"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Regression Model
+
+```{r}
+apiculture_data$ANNUALINCOME <- factor(
+  apiculture_data$ANNUALINCOME,
+  levels = c("<5000", "5000-10000", "11000-20000", "21000-100000", "100001+"),
+  ordered = TRUE
+)
+```
+
+
+```{r echo=FALSE, results='hide'}
+library(MASS)
+
+model <- polr(
+  ANNUALINCOME ~ TYPEOFHIVES + FORMALBEEKEEPINGTRAINING,
+  data = apiculture_data
+)
+
+summary(model)
+```
+
+
+##  Key Findings
+
+- Majority of beekeepers fall in low-income category
+- Training significantly improves income outcomes
+- Traditional hives reduce productivity
+- Education has a weaker effect compared to training
+
+## Research Output
+
+- Determinants of Income in Apiculture 
+- Ongoing: Adoption of Modern Beekeeping Practices
+
+## Contact
+
+- Email: antoinemuriungi@gmail.com  
+- Institution: Meru University of Science and Technology  
+
+
